@@ -6,6 +6,9 @@
 
 
 def pascal_triangle(n):
+    '''
+        pascal_triangle takes n as the number of rows in the triangle.
+    '''
     if n <= 0:
         return []
     if n == 1:
