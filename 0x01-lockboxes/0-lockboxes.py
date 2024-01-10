@@ -15,9 +15,9 @@ def canUnlockAll(boxes):
     for key in boxes_to_check:
         if key in boxes_to_open:
             boxes_to_open.remove(key)
-        for boxkey in boxes[key]:
-            if boxkey not in boxes_to_check:
-                boxes_to_check.append(boxkey)
+            for boxkey in boxes[key]:
+                if boxkey not in boxes_to_check:
+                    boxes_to_check.append(boxkey)
     if len(boxes_to_open) == 0:
         return True
     return False
