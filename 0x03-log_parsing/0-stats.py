@@ -57,18 +57,18 @@ def show_status_code_states(status_codes):
 
 try:
     for line in sys.stdin:
-        if number_of_lines % 10 == 0 and files_total_size != 0:
-            print("File size: {}".format(files_total_size))
-            show_status_code_states(status_codes_states)
         if check_line(line):
             file_size = line.split(' ')[8]
             if file_size == '\n':
                 file_size = file_size[:-1]
             status_code = line.split(' ')[7]
-            if status_code in status_codes_states:
+            if status_code in sorted(status_codes_states.keys()):
                 status_codes_states[status_code] += 1
             files_total_size += int(file_size)
         number_of_lines += 1
+        if number_of_lines % 10 == 0 and files_total_size != 0:
+            print("File size: {}".format(files_total_size))
+            show_status_code_states(status_codes_states)
 except (KeyboardInterrupt, EOFError):
     print("File size: {}".format(files_total_size))
     show_status_code_states(status_codes_states)
