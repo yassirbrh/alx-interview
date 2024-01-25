@@ -69,6 +69,6 @@ try:
         if number_of_lines % 10 == 0:
             print("File size: {}".format(files_total_size))
             show_status_code_states(status_codes_states)
-except (KeyboardInterrupt, EOFError):
+finally:
     print("File size: {}".format(files_total_size))
     show_status_code_states(status_codes_states)
