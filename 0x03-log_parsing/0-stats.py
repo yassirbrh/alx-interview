@@ -66,7 +66,7 @@ try:
                 status_codes_states[status_code] += 1
             files_total_size += int(file_size)
         number_of_lines += 1
-        if number_of_lines % 10 == 0 and files_total_size != 0:
+        if number_of_lines % 10 == 0:
             print("File size: {}".format(files_total_size))
             show_status_code_states(status_codes_states)
 except (KeyboardInterrupt, EOFError):
