@@ -6,14 +6,14 @@ import copy
 import re
 import sys
 
-
+'''
 def check_line(line):
-    '''
+    #
         check_line: function
         @line: line of input to check
         return: True if it is validated.
                 False otherwise.
-    '''
+    #
     ip_pattern = re.compile(r'^(\d{1,3}\.){3}\d{1,3}$')
     date_pattern = re.compile(r'\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}\.\d+')
     date = re.findall(r'\[(.*?)\]', line)
@@ -30,7 +30,7 @@ def check_line(line):
     if not input_line[8].isdigit() or not input_line[7].isdigit():
         return False
     return True
-
+'''
 
 def show_status_code_states(status_codes, files_total_size):
     '''
@@ -58,16 +58,13 @@ try:
         '500': 0,
     }
     for line in sys.stdin:
-        if check_line(line):
-            file_size = line.split(' ')[8]
-            if file_size == '\n':
-                file_size = file_size[:-1]
-            status_code = line.split(' ')[7]
-            if status_code in sorted(status_codes_states.keys()):
-                status_codes_states[status_code] += 1
-            files_total_size += int(file_size)
-        else:
-            continue
+        file_size = line.split(' ')[8]
+        if file_size == '\n':
+            file_size = file_size[:-1]
+        status_code = line.split(' ')[7]
+        if status_code in sorted(status_codes_states.keys()):
+            status_codes_states[status_code] += 1
+        files_total_size += int(file_size)
         number_of_lines += 1
         if number_of_lines % 10 == 0:
             show_status_code_states(status_codes_states, files_total_size)
