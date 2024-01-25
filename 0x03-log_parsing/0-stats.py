@@ -45,15 +45,17 @@ def check_line(line):
     return True
 
 
-def show_status_code_states(status_codes):
+def show_status_code_states(status_codes, files_total_size):
     '''
         show_status_code_states: function
         @status_codes: dictionary of status codes.
         return: void function
     '''
+    print("File size: {}".format(files_total_size))
     for code in sorted(status_codes.keys()):
         if status_codes[code] != 0:
             print("{:s}: {:d}".format(code, status_codes[code]))
+
 
 try:
     for line in sys.stdin:
@@ -67,8 +69,6 @@ try:
             files_total_size += int(file_size)
         number_of_lines += 1
         if number_of_lines % 10 == 0:
-            print("File size: {}".format(files_total_size))
-            show_status_code_states(status_codes_states)
+            show_status_code_states(status_codes_states, files_total_size)
 finally:
-    print("File size: {}".format(files_total_size))
-    show_status_code_states(status_codes_states)
+    show_status_code_states(status_codes_states, files_total_size)
