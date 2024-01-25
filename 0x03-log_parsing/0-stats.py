@@ -66,6 +66,8 @@ try:
             if status_code in sorted(status_codes_states.keys()):
                 status_codes_states[status_code] += 1
             files_total_size += int(file_size)
+        else:
+            continue
         number_of_lines += 1
         if number_of_lines % 10 == 0:
             show_status_code_states(status_codes_states, files_total_size)
