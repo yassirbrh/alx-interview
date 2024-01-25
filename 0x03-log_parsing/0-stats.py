@@ -17,7 +17,7 @@ status_codes_states = {
         '404': 0,
         '405': 0,
         '500': 0,
-}
+        }
 
 
 def check_line(line):
@@ -55,17 +55,20 @@ def show_status_code_states(status_codes):
         if status_codes[code] != 0:
             print("{}: {}".format(code, status_codes[code]))
 
-
-for line in sys.stdin:
-    if number_of_lines % 10 == 0 and files_total_size != 0:
-        print("File size: {}".format(files_total_size))
-        show_status_code_states(status_codes_states)
-    if check_line(line):
-        file_size = line.split(' ')[8]
-        if file_size == '\n':
-            file_size = file_size[:-1]
-        status_code = line.split(' ')[7]
-        if status_code in status_codes_states:
-            status_codes_states[status_code] += 1
-        files_total_size += int(file_size)
-    number_of_lines += 1
+try:
+    for line in sys.stdin:
+        if number_of_lines % 10 == 0 and files_total_size != 0:
+            print("File size: {}".format(files_total_size))
+            show_status_code_states(status_codes_states)
+        if check_line(line):
+            file_size = line.split(' ')[8]
+            if file_size == '\n':
+                file_size = file_size[:-1]
+            status_code = line.split(' ')[7]
+            if status_code in status_codes_states:
+                status_codes_states[status_code] += 1
+            files_total_size += int(file_size)
+        number_of_lines += 1
+except (KeyboardInterrupt, EOFError):
+    print("File size: {}".format(files_total_size))
+    show_status_code_states(status_codes_states)
