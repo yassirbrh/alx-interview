@@ -51,9 +51,9 @@ def show_status_code_states(status_codes):
         @status_codes: dictionary of status codes.
         return: void function
     '''
-    for code in status_codes:
+    for code in sorted(status_codes.keys()):
         if status_codes[code] != 0:
-            print("{}: {}".format(code, status_codes[code]))
+            print("{:s}: {:d}".format(code, status_codes[code]))
 
 try:
     for line in sys.stdin:
