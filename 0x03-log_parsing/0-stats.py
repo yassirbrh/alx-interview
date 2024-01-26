@@ -15,7 +15,9 @@ def check_line(line):
     input_line = line.split(' ')
     if input_line[-1][-1] == '\n':
         input_line[-1] = input_line[-1][:-1]
-    if input_line[-1].isdigit() and input_line[-2].isdigit():
+    if len(input_line) < 3:
+        return False
+    if input_line[-1].isdigit():
         return True
     return False
 
@@ -51,8 +53,9 @@ try:
             if file_size == '\n':
                 file_size = file_size[:-1]
             status_code = line.split(' ')[-2]
-            if status_code in sorted(status_codes_states.keys()):
-                status_codes_states[status_code] += 1
+            if status_code.isdigit():
+                if status_code in sorted(status_codes_states.keys()):
+                    status_codes_states[status_code] += 1
             files_total_size += int(file_size)
         else:
             continue
