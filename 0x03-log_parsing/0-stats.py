@@ -19,6 +19,8 @@ def check_line(line):
     date = re.findall(r'\[(.*?)\]', line)
     status = re.findall(r'"(.*?)"', line)
     input_line = line.split(' ')
+    if len(input_line) != 9:
+        return False
     if input_line[8][-1] == '\n':
         input_line[8] = input_line[8][:-1]
     if not ip_pattern.match(input_line[0]):
