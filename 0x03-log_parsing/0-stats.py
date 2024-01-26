@@ -21,8 +21,6 @@ def check_line(line):
     input_line = line.split(' ')
     if len(input_line) != 9:
         return False
-    if not input_line[8].isdigit() or not input_line[7].isdigit():
-        return False
     if input_line[8][-1] == '\n':
         input_line[8] = input_line[8][:-1]
     if not ip_pattern.match(input_line[0]):
@@ -30,6 +28,8 @@ def check_line(line):
     if not date_pattern.match(date[0]):
         return False
     if status[0] != 'GET /projects/260 HTTP/1.1':
+        return False
+    if not input_line[8].isdigit() or not input_line[7].isdigit():
         return False
     return True
 
