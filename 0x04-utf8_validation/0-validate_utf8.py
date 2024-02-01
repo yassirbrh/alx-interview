@@ -18,13 +18,15 @@ def validUTF8(data: List[int]) -> bool:
         return False
     index = 0
     while index < len(data):
+        if not isinstance(data[index], int) or data[index] < 0:
+            return False
         first_bytes = format(data[index], '08b')[0:5]
         if first_bytes[0] == '0':
             pass
         else:
             match = re.search(r'1+', first_bytes)
             len_match = len(match.group())
-            if len_match == 1:
+            if len_match < 2 or len_match > 4:
                 return False
             for i in range(1, len_match):
                 if data[index + i] & 0b10000000 != 0b10000000:
