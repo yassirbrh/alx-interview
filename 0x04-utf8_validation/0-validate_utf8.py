@@ -23,13 +23,14 @@ def validUTF8(data: List[int]) -> bool:
         first_bytes = format(data[i], '08b')[0:5]
         if first_bytes[0] == '0':
             i += 1
-            continue
         else:
             match = re.search(r'1+', first_bytes)
             len_match = len(match.group())
             if len_match < 2 or len_match > 4 or len_match + i > len(data):
                 return False
             for index in range(1, len_match):
+                if data[index + i] & 0b11000000 == 0b01000000:
+                    continue
                 if data[index + i] & 0b11000000 != 0b10000000:
                     return False
             i += len_match
