@@ -30,7 +30,7 @@ def validUTF8(data: List[int]) -> bool:
             if len_match < 2 or len_match > 4:
                 return False
             for index in range(1, len_match):
-                if data[index + i] & 0b10000000 != 0b10000000:
+                if data[index + i] & 0b11000000 != 0b10000000:
                     return False
             i += len_match
     return True
