@@ -16,21 +16,21 @@ def validUTF8(data: List[int]) -> bool:
     '''
     if data is None or not isinstance(data, list):
         return False
-    index = 0
-    while index < len(data):
-        if not isinstance(data[index], int) or data[index] < 0:
+    i = 0
+    while i < len(data):
+        if not isinstance(data[i], int) or data[i] < 0 or data[i] > 0x10FFFF:
             return False
-        first_bytes = format(data[index], '08b')[0:5]
+        first_bytes = format(data[i], '08b')[0:5]
         if first_bytes[0] == '0':
-            pass
+            i += 1
+            continue
         else:
             match = re.search(r'1+', first_bytes)
             len_match = len(match.group())
             if len_match < 2 or len_match > 4:
                 return False
-            for i in range(1, len_match):
+            for index in range(1, len_match):
                 if data[index + i] & 0b10000000 != 0b10000000:
                     return False
-            index += len_match - 1
-        index += 1
+            i += len_match
     return True
