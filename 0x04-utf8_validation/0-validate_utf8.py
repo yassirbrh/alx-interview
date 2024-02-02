@@ -27,7 +27,7 @@ def validUTF8(data: List[int]) -> bool:
         else:
             match = re.search(r'1+', first_bytes)
             len_match = len(match.group())
-            if len_match < 2 or len_match > 4 or len_match + i >= len(data):
+            if len_match < 2 or len_match > 4:
                 return False
             for index in range(1, len_match):
                 if data[index + i] & 0b11000000 != 0b10000000:
