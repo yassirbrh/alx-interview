@@ -20,7 +20,8 @@ def validUTF8(data: List[int]) -> bool:
     while i < len(data):
         if not isinstance(data[i], int) or data[i] < 0 or data[i] > 0x10FFFF:
             return False
-        first_bytes = format(data[i], '08b')[0:5]
+        first_bytes = format(data[i], '08b')[-8:]
+        first_bytes = first_bytes[0:5]
         if first_bytes[0] == '0':
             i += 1
         else:
@@ -29,8 +30,6 @@ def validUTF8(data: List[int]) -> bool:
             if len_match < 2 or len_match > 4 or len_match + i > len(data):
                 return False
             for index in range(1, len_match):
-                if data[index + i] & 0b11000000 == 0b01000000:
-                    continue
                 if data[index + i] & 0b11000000 != 0b10000000:
                     return False
             i += len_match
