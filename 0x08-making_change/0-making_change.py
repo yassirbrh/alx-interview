@@ -14,14 +14,15 @@ def makeChange(coins, total):
     '''
     if total <= 0:
         return 0
+    remain_total = total
     total_coins_number = 0
     while coins != []:
         max_coin = max(coins)
         coins.remove(max_coin)
-        if max_coin > total:
+        if max_coin > remain_total:
             if len(coins) == 1:
                 return -1
             continue
-        total_coins_number += int(total / max_coin)
-        total %= max_coin
+        total_coins_number += int(remain_total / max_coin)
+        remain_total %= max_coin
     return total_coins_number
