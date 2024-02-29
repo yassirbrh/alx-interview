@@ -18,7 +18,7 @@ def makeChange(coins, total):
     total_coins_number = 0
     sorted_coins = sorted(coins, reverse=True)
     i = 0
-    while sorted_coins != []:
+    while remain_total > 0:
         max_coin = sorted_coins[i]
         sorted_coins.remove(max_coin)
         if max_coin > remain_total:
