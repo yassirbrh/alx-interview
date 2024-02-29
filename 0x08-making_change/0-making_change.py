@@ -19,12 +19,15 @@ def makeChange(coins, total):
     sorted_coins = sorted(coins, reverse=True)
     i = 0
     while remain_total > 0:
+        if i >= len(sorted_coins):
+            return -1
         max_coin = sorted_coins[i]
-        sorted_coins.remove(max_coin)
         if max_coin > remain_total:
-            if len(sorted_coins) == 1:
+            if i == len(sorted_coins) - 1:
                 return -1
+            i += 1
             continue
         total_coins_number += int(remain_total / max_coin)
         remain_total %= max_coin
+        i += 1
     return total_coins_number
