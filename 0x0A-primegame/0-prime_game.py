@@ -21,6 +21,8 @@ def isWinner(x, nums):
         @nums: List of numbers.
         return: name of the player winning the most.
     '''
+    if x < 1 or not nums:
+        return None
     num_rounds = x
     i = 0
     result = {'Ben': 0, 'Maria': 0}
