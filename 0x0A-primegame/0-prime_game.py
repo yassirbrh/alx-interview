@@ -5,24 +5,19 @@
 '''
 
 
-def is_prime(num):
-    '''
-        is_prime: function
-        @num: Number to check.
-        return: True if prime otherwise False
-    '''
-    if num <= 1:
-        return False
-    if num <= 3:
-        return True
-    if num % 2 == 0 or num % 3 == 0:
-        return False
-    i = 5
-    while i * i <= num:
-        if num % i == 0 or num % (i + 2) == 0:
-            return False
-        i += 6
-    return True
+def SieveOfEratosthenes(n):
+    """
+    Generates a list of prime numbers up to n using the Sieve of Eratosthenes
+    algorithm.
+    """
+    prime = [True for i in range(n + 1)]
+    p = 2
+    while p * p <= n:
+        if prime[p] is True:
+            for i in range(p * p, n + 1, p):
+                prime[i] = False
+        p += 1
+    return [p for p in range(2, n + 1) if prime[p]]
 
 
 def isWinner(x, nums):
@@ -34,21 +29,17 @@ def isWinner(x, nums):
     '''
     if x < 1 or not nums:
         return None
-    num_rounds = x
-    i = 0
+
     result = {'Ben': 0, 'Maria': 0}
-    while num_rounds:
-        elem = nums[i]
+    primes = SieveOfEratosthenes(max(nums))
+
+    for elem in nums:
         opponent = 'Ben'
         for j in range(2, elem + 1):
-            if is_prime(j):
-                if opponent == 'Ben':
-                    opponent = 'Maria'
-                else:
-                    opponent = 'Ben'
+            if j in primes:
+                opponent = 'Maria' if opponent == 'Ben' else 'Ben'
         result[opponent] += 1
-        i += 1
-        num_rounds -= 1
+
     if result['Ben'] == result['Maria']:
         return None
     return max(result, key=result.get)
