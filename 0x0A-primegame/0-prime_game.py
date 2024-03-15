@@ -10,14 +10,14 @@ def SieveOfEratosthenes(n):
     Generates a list of prime numbers up to n using the Sieve of Eratosthenes
     algorithm.
     """
-    prime = [True for i in range(n + 1)]
-    p = 2
-    while p * p <= n:
-        if prime[p] is True:
-            for i in range(p * p, n + 1, p):
-                prime[i] = False
-        p += 1
-    return [p for p in range(2, n + 1) if prime[p]]
+    primes = [True for _ in range(1, n + 1, 1)]
+    primes[0] = False
+    for i, isPrime in enumerate(primes, 1):
+        if i == 1 or not isPrime:
+            continue
+        for y in range(i + i, n + 1, i):
+            primes[y - 1] = False
+    return primes
 
 
 def isWinner(x, nums):
@@ -33,12 +33,10 @@ def isWinner(x, nums):
     result = {'Ben': 0, 'Maria': 0}
     primes = SieveOfEratosthenes(max(nums))
 
-    for elem in nums:
-        opponent = 'Ben'
-        for j in range(2, elem + 1):
-            if j in primes:
-                opponent = 'Maria' if opponent == 'Ben' else 'Ben'
-        result[opponent] += 1
+    for _, n in zip(range(x), nums):
+        primesCount = len(list(filter(lambda x: x, primes[0: n])))
+        result['Ben'] += primesCount % 2 == 0
+        result['Maria'] += primesCount % 2 == 1
 
     if result['Ben'] == result['Maria']:
         return None
