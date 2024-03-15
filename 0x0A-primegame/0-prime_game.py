@@ -6,6 +6,11 @@
 
 
 def is_prime(num):
+    '''
+        is_prime: function
+        @num: Number to check.
+        return: True if prime otherwise False
+    '''
     if num <= 1:
         return False
     for i in range(2, int(num**0.5) + 1):
